@@ -1,0 +1,158 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\graphicspath{ {images/} }
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=cyan,
+}
+\definecolor{myGray}{HTML}{e6e6e6}
+\definecolor{myBlue}{HTML}{80D0F0}
+\definecolor{myRed}{HTML}{F08080}
+
+\begin{document}
+
+\title{Intro To Artificial Intelligence}
+\author{Olu Gbadebo}
+\date{December 26th, 2016}
+\maketitle
+
+\begin{center}
+{\small As taught by Sebastain Thrun and Peter Norvic\\}
+\vfill
+\end{center}
+
+\setlength{\parindent}{10ex}
+What is Artificial Intelligence? It is an \textbf{Intelligent Agent}. An Intelligent Agent interacts with a certain environment to which it receives data from and send some data back to. The Agent uses \textbf{sensors} to \enquote{see} the environment and extracts information from the environment's state. It then uses \textbf{actuators} to affect the state of the environment. When the Agent receives data, it goes through a \textbf{decision state} where it runs a function that analyzes the data and make a decision based on the data. The decision it makes is what the \textbf{attractors} will carry out on the environment.\par
+The process of the Agent carrying out these (see, decide, act) actions repeatedly is called the \textbf{Perception Action Cycle}. In other words, the Perception Action Cycle is simply that the Agent continuously asks the environment for some data, processes the data, makes a decision and sends its decision to the environment.
+
+\section*{Applications of A.I.}
+Artificial Intelligence has been used in several different areas of life. Some of the areas that AI has been successfully used in are:
+\begin{enumerate}
+\item Finance
+\item Robotics
+\item Games
+\item Medicine
+\item The Web
+\end{enumerate}
+\subsection*{Finance}
+There is a huge use of AI in financing and in making trading decision. AI in finance is called a \textbf{Trading Agent}. The environment of a trading agent might be a stock market or a bond market or a commodities market. The agent can read the news, follow certain events, and analyze datasets, which are its form of sensors. The decisions the agent can make are either to buy or sell (in other words, trade). \par
+Trading agents have been used to look at data over time, and those who use trading agents have made good amount of profits.
+\subsection*{Robotics}
+Artificial Intelligence also has good history in robotics. AI agents in robotics can be actual robots. The agents' sensors include cameras, microphone and tactile sensor (touch). The way robots agent impact the environment is to move, touch or speak with humans.
+\subsection*{Games}
+AI has been used hugely in games. For example, AI has been used in chess game to play against humans. The AI agent, \textbf{Game Agent}, reads your moves, analyzes it and then makes it own moves. \par
+There are two reasons of all reasons that game agents are used in games. The first is to play against you with purpose of making you lose and ultimately make you feel like a better player. The second reason is to make game play feel more natural and real in a way that characters in the games are smarter.
+\subsection*{Medicine}
+A \textbf{Diagnostic Agent} is used in medicine to make \enquote{diagnostic} decisions. The agent observes you by making measurements like blood pressure and heart signal, and, in most cases, communicates its decision with a doctor who then intervene the final decision. There are many other versions of diagnostics agent.
+\subsection*{The Web}
+A web crawler is a type of AI on the web. The crawling agent goes to the World Wide Web and retrieves web pages, arranges the web pages and then show the best web pages. This agent is widely used by companies such as Google and Microsoft.
+\section*{Terminology}
+Terminologies relating to environments are as follows:
+\begin{enumerate}
+\item Fully and Partial Observable
+\item Deterministic and Stochastic
+\item Discrete and Continuous
+\item Benign and Adversarial
+\end{enumerate}
+\subsection*{Fully and Partial Observable}
+An environment is considered a \textbf{Fully Observable environment} if what the agent senses at any point in time is completely sufficient to make an optimal decision. For example, in many card games where all the cards are visible, the momentary sites of all the cards is really sufficient for the AI to make a decision. On the contrary, a \textbf{Partial Observable environment} is where the AI needs some memory to make the best decision. For example, in the game of poker where the cards are hidden, the AI would need some previous plays as data to make some predictions. \par
+In a Perception Action cycle, a Fully Observable environment would have an agent that has full access to the state whereas a Partially Observable environment would have an agent that has access to some parts of the state and also have memorized data.
+\subsection*{Deterministic and Stochastic}
+The \textbf{Deterministic} environment is where the agent's actions uniquely determine the outcome, like in chess where moves can be predetermined and the one moves affects the next. But a \textbf{Stochastic} environment where predictions can't be made based on random events, like a game that involves throwing a dice.
+\subsection*{Discrete and Continuous}
+In \textbf{Discrete} environment, there are finitely many action choices for the agent to make. Well in \textbf{Continuous} environment, \textit{you guessed it!}, there are infinitely many actions to make. Examples are chess game with finite positions on the board and dart with infinite many ways of throwing the dart (different angles and accelerations).
+\subsection*{Benign and Adversarial}
+\textbf{Benign} environment doesn't have an objective that contradicts your own objective. Its goal is not to \textit{hunt you down} like the weather which just does its thing without trying to hurt you. It thrives to achieve a goal that doesn't affect its user. Whereas an \textbf{Adversarial} environment exists to \textit{make you not exist} like in a chess game where your opponent is sweating hard to make you lose.
+\section*{Problem solving techinques}
+A problem in AI can be broken down into a number of components.
+\begin{enumerate}
+\item Initial State: This is the state that the agent starts out with.
+\item Action: A function, \colorbox{myGray}{action(s)}, that takes in a state of the agent and returns a set of actions \colorbox{myGray}{\{a\textsubscript{1}, a\textsubscript{2}, a\textsubscript{3}, ... , a\textsubscript{n}\} }  For some agents, they might have the same actions in all states and in other agents they might have different actions in all states.
+\item Result: A function, \colorbox{myGray}{result(s, a)}, that takes in a state and an action and delivers as output a new state.
+\item Goal Test: A function, \colorbox{myGray}{goaltest(s)}, which takes a state and returns a boolean stating whether the state is the goal or not.
+\item Path Cost: A function, \colorbox{myGray}{pathcost(s\textsubscript{1}$\xrightarrow{a}$s\textsubscript{2}$\xrightarrow{a}$...)} which takes a sequence of state-action transactions and returns a number \colorbox{myGray}{n} which is the cost of that action.
+\end{enumerate}
+\par
+Searches can be used in AI to solve AI problems. For example, provided a map, how can you find the best route from a starting position to a destination on the map? A search algorithm can help solve the problem. Some search algorithms used in AI are :
+\begin{enumerate}
+\item Tree Search
+\item Breadth First Search
+\item Graph Search
+\item Depth First Search
+\item Uniform Cost Search (Cheapest Cost)
+\item A* Search
+\end{enumerate}
+\textit{I won't write in details what these searches are. I know I should. You can find the \href{https://classroom.udacity.com/courses/cs271}{lectures} on Udacity's Intro to AI, \enquote{Problem Solving} section}
+\subsection*{Problem with problem-solving}
+These problem-solving techniques only work if the following conditions are true:
+\begin{itemize}
+\item The environment must be \textbf{Fully Observable}: We must be able to know what initial state we start out with.
+\item The environment must be \textbf{Known}: We must know the set of actions that can be performed.
+\item The environment must be \textbf{Discrete}: There must be a finite actions to choose from.
+\item The environment must be \textbf{Deterministic}: We have to know the result of taking an action.
+\item The environment must be \textbf{Static}: There must be nothing else that can change the environment except our own actions.
+\end{itemize}
+
+\section*{Probability in AI: Bayes Network}
+\textbf{Bayes Network} is a probability technique that is widely used almost in all fields of smart computing systems such as diagnostics, predictions, machine learning. It's also used in fields like finance, robotics and internal departments at Google. Bayes Network also serves as the building block for some advance AI techniques including particle filters, hidden MArkov model, MDPs, POMDPs, kalmal filters and many others.
+\begin{center}
+\textit{Problem in \colorbox{myRed}{red}, Causes in \colorbox{myBlue}{blue}, Diagnostic in \colorbox{myGray}{black/gray}}
+\end{center}
+\par
+To understand Bayes Network, we will use the following example. Suppose you find out in the morning that your \colorbox{myRed}{car won't start}, there are many reasons such situation could occur. One is that your \colorbox{myBlue}{battery is flat}. For a flat battery, there are other causes such as \colorbox{myBlue}{battery is dead} or the \colorbox{myBlue}{battery is not charging}. \textit{You see the \enquote{chain reaction} here?} If the battery is not charging, it could be that the \colorbox{myBlue}{alternator is broken} or the \colorbox{myBlue}{fanbelt is broken}.\par
+Analyzing the Bayes Network, you can see that there are many different causes for the car not to start. The question is, \enquote{can we diagnose the problem?}\\
+\vspace{2em}
+\includegraphics[width=\textwidth]{bayes_network1}
+One diagnostic tool is a \colorbox{myGray}{battery meter}, which would either support your belief, or not, that the battery is the sole cause. Another reason to think it might be your battery is the \colorbox{myGray}{battery's age}. Older batteries tend to die more often. Other diagnostic approach is to inspect the \colorbox{myGray}{light}, \colorbox{myGray}{oil light}, \colorbox{myGray}{gas gauge}, and you could dip into the engine oil with a \colorbox{myGray}{dipstick}. This approach relates to other reasons why the car won't start, like \colorbox{myBlue}{no oil}, \colorbox{myBlue}{no gas}, \colorbox{myBlue}{fuel line blocked}, or \colorbox{myBlue}{broken starter}. \textit{They are all connected!} The flat battery will cause the lights not to work, and would have effect on the oil light and gas gauge. The dipstick and the oil light would indicate whether or not there is oil in the engine. And of course, the car won't start if there's no gas, which would be indicated by the gas gauge.\\
+\vspace{2em}
+\includegraphics[width=\textwidth]{bayes_network2}
+\par
+A Bayes Network is graph composed of nodes. Nodes can correspond to known or unknown events, typically called \textbf{Random Variables}. These nodes are connected by arcs, and the arcs suggests that the child of the arc is affected by the parent either in a deterministic way or in a probabilistic way. Therefore, the Bayes Network graph structure provides a probability distribution in the space of all the given variables (nodes).
+\subsection*{Probabilities}
+\textit{Too lazy to write}\\
+\vspace{2em}
+\includegraphics[width=\textwidth]{probs1}
+\vspace{2em}
+\includegraphics[width=\textwidth]{probs2}
+\vspace{2em}
+\includegraphics[width=\textwidth]{probs3}
+\vspace{2em}
+\includegraphics[width=\textwidth]{probs4}
+\vspace{2em}
+\includegraphics[width=\textwidth]{probs5}
+\vspace{2em}
+\textit{I have to write something now!}\par
+If for some certain variables \(x\) and \(y\), there are two possible events \(H \mid T\) for each (as in \(x (H), x (T), y (H), y (T)\) ). Provided the probability of one event of one variable is given \(p ( x (H) ) = 0.5\), and probability of the sequence of possible events is also given, ex: \( p ( y (T) \mid x (H) ) = 0.9\) \textit{read: the probability of \(y\) being \(T\) following \(x\) being \(H\) is 0.9}. The probability of the one event of the second variable is the sum of the multiplication of the \colorbox{myRed}{probability of that event of the second following one event of the first variable} and the \colorbox{myBlue}{probability of the one event of the first variable} and the multiplication of the \colorbox{myRed}{probability of that event of the second following second event of the first variable} and the \colorbox{myBlue}{probability of the second event of the first variable}.
+\begin{equation}
+p(x(T)) = \colorbox{myRed}{p(x(T) $\mid$ y(H))} \times \colorbox{myBlue}{p(y(H))} + \colorbox{myRed}{p(x(T) $\mid$ y(T))} \times \colorbox{myBlue}{p(y(T))}
+\end{equation}
+\textit{I'm so confused!}\\
+\subsection*{Bayes Rule}
+\begin{equation}
+P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}
+\end{equation}
+\colorbox{myGray}{P(A $\mid$ B)} is Posterior: the probability of A given B, where A is the cause (variable we care about) and B is the evidence\\
+\colorbox{myGray}{P(B $\mid$ A)} is Likelihood: provided the A, the probability of B\\
+\colorbox{myGray}{P(A)} is Prior: probability of A\\
+\colorbox{myGray}{P(B)} is Marginal Likelihood: probability of B, also the Total Probability\\
+\vspace{2em}
+Total Probability \colorbox{myGray}{P(B)} = $\sum_{a}^{}P(B \mid A = a) \times P(A = a)$\\
+\vspace{2em}
+Graphically,\\
+\includegraphics[width=\textwidth]{bayesgraph}\\
+\vspace{4em}
+\textit{You don't get it? \href{https://classroom.udacity.com/courses/cs271/lessons/48624746/concepts/487193570923}{Go here}}\\
+\textit{See that P(B) in the denominator of Bayes' Rule? Yeah! Let's get rid of it cos why not?}
+\par
+We know that P(A $\mid$ B) + P( $\neg$ A $\mid$ B) = 1. So, using psuedo probabilities P'(A $\mid$ B) = P(B $\mid$ A) $\times$ P(A) and P'($\neg$A $\mid$ B) = P(B $\mid$ $\neg$A) $\times$ P($\neg$A), Bayes Rule can be written as P(A $\mid$ B) = $\eta$ P'(A $\mid$ B) where $\eta$ (normalizer, pronounced \enquote*{eta}) = ( P'(A $\mid$ B) + P'($\neg$ A $\mid$ B) )\textsuperscript{-1}
+\end{document}
