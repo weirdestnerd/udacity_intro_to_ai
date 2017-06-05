@@ -154,5 +154,39 @@ Graphically,\\
 \textit{You don't get it? \href{https://classroom.udacity.com/courses/cs271/lessons/48624746/concepts/487193570923}{Go here}}\\
 \textit{See that P(B) in the denominator of Bayes' Rule? Yeah! Let's get rid of it cos why not?}
 \par
-We know that P(A $\mid$ B) + P( $\neg$ A $\mid$ B) = 1. So, using psuedo probabilities P'(A $\mid$ B) = P(B $\mid$ A) $\times$ P(A) and P'($\neg$A $\mid$ B) = P(B $\mid$ $\neg$A) $\times$ P($\neg$A), Bayes Rule can be written as P(A $\mid$ B) = $\eta$ P'(A $\mid$ B) where $\eta$ (normalizer, pronounced \enquote*{eta}) = ( P'(A $\mid$ B) + P'($\neg$ A $\mid$ B) )\textsuperscript{-1}
+We know that P(A $\mid$ B) + P( $\neg$ A $\mid$ B) = 1 and P(B) serves as the \enquote*{normalizer} in the Bayes' Rule. So, using psuedo probabilities, (P'), that are non-normalized: \colorbox{myGray}{P'(A $\mid$ B) = P(B $\mid$ A) $\times$ P(A)} and P'($\neg$A $\mid$ B) = P(B $\mid$ $\neg$A) $\times$ P($\neg$A), Bayes Rule is the product of the psuedo probability and the normalizer, $\eta$  ( pronounced \enquote*{eta} ) = \colorbox{myGray}{( P'(A $\mid$ B) + P'($\neg$ A $\mid$ B) )\textsuperscript{-1}}: 
+\begin{equation}
+\colorbox{myGray}{P(A $\mid$ B) = $\eta$ P'(A $\mid$ B)}
+\end{equation}
+\vspace{2em}
+Let's use this new equation in an example:\\
+\vspace{2em}
+\includegraphics[width=\textwidth]{probs6}\\
+Given the information in the graphic above, find P(C $\mid$ T\textsubscript{1} = + T\textsubscript{2} = $-$).
+\begin{center}
+\begin{tabular}{ |c |c |c |c |c|}
+  & P(C) & + & $-$ & P'\\ 
+ C & 0.01 & 0.9 & 0.1 & 0.0009 \\  
+ $\neg$ C & 0.99 & 0.2 & 0.8 & 0.1584\\
+  & & & & $\eta$ = 0.1593\textsuperscript{-1}
+\end{tabular}
+\end{center}
+\(P'(C \mid +, -) = P(C \mid +) \times P(C \mid -)\)\\\\
+\(P'(C \mid +, -) = ( P(C \mid +) \times P(C) ) \times ( P(C \mid -) \times P(C) )\)\\\\
+\(P'(C \mid +, -) = P(C \mid +) \times P(C \mid -) \times P(C)\)\\\\
+\(P'(C \mid +, -) = 0.01 \times 0.9 \times 0.01 = 0.0009\)\\\\
+\(\eta = ( P'(C \mid +, -) + P'(\neg C \mid +, -) )\textsuperscript{-1}\)\\\\
+\(\eta = (0.0009 + 0.1584)\textsuperscript{-1} = 6.2775\)\\\\
+Since \(P(C \mid +, -) = \eta\;P'(C \mid +, -)\)\\\\
+\vspace{2em}
+\(P(C \mid +, -) = 0.0009 \times 6.2775 = 0.0056\)
+\par
+\subsection*{Conditional Independence}
+In Bayes' network, given three causes \colorbox{myBlue}{A}, \colorbox{myBlue}{B} and \colorbox{myBlue}{C},\\
+\vspace{2em}
+\includegraphics[width=\textwidth]{probs7}\\
+if A is a known variable i.e. the value of A is certain, then B is \textbf{conditionally independent} of C, (B $\perp$ C $\mid$ A). For example, the probability of C given A and B, provided that the value of A is known, is equivalent to the probability of C given A:\\
+\begin{equation}
+\colorbox{myGray}{\(P(C \mid A,B) = P(C \mid A)\)}
+\end{equation}
 \end{document}
