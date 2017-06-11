@@ -132,7 +132,7 @@ A Bayes Network is graph composed of nodes. Nodes can correspond to known or unk
 \includegraphics[width=\textwidth]{probs5}
 \vspace{2em}
 \textit{I have to write something now!}\par
-If for some certain variables \(x\) and \(y\), there are two possible events \(H \mid T\) for each (as in \(x (H), x (T), y (H), y (T)\) ). Provided the probability of one event of one variable is given \(p ( x (H) ) = 0.5\), and probability of the sequence of possible events is also given, ex: \( p ( y (T) \mid x (H) ) = 0.9\) \textit{read: the probability of \(y\) being \(T\) following \(x\) being \(H\) is 0.9}. The probability of the one event of the second variable is the sum of the multiplication of the \colorbox{myRed}{probability of that event of the second following one event of the first variable} and the \colorbox{myBlue}{probability of the one event of the first variable} and the multiplication of the \colorbox{myRed}{probability of that event of the second following second event of the first variable} and the \colorbox{myBlue}{probability of the second event of the first variable}.
+If for some certain variables \(x\) and \(y\), there are two possible events \(H \mid T\) for each (as in \(x (H), x (T), y (H), y (T)\) ). Provided the probability of first event of \(x\) is given \(p ( x (H) ) = 0.5\), and probability of the sequence of possible events is also given, ex: \( p ( y (T) \mid x (H) ) = 0.9\) \textit{read: the probability of \(y\) being \(T\) following \(x\) being \(H\) is 0.9}. The probability of the second event of \(x\) is the sum of the multiplication of the \colorbox{myRed}{probability of the second event of \(x\) following the first event of \(y\)} and the \colorbox{myBlue}{probability of the first event of \(y\)} and the multiplication of the \colorbox{myRed}{probability of the second event of \(x\) following the second event of \(y\)} and the \colorbox{myBlue}{probability of the second event of \(y\)}.
 \begin{equation}
 p(x(T)) = \colorbox{myRed}{p(x(T) $\mid$ y(H))} \times \colorbox{myBlue}{p(y(H))} + \colorbox{myRed}{p(x(T) $\mid$ y(T))} \times \colorbox{myBlue}{p(y(T))}
 \end{equation}
@@ -171,15 +171,15 @@ Given the information in the graphic above, find P(C $\mid$ T\textsubscript{1} =
   & & & & $\eta$ = 0.1593\textsuperscript{-1}
 \end{tabular}
 \end{center}
+\(P(C \mid +, -) = \eta\;P'(C \mid +, -)\)\\\\
 \(P'(C \mid +, -) = P(C \mid +) \times P(C \mid -)\)\\\\
 \(P'(C \mid +, -) = ( P(C \mid +) \times P(C) ) \times ( P(C \mid -) \times P(C) )\)\\\\
 \(P'(C \mid +, -) = P(C \mid +) \times P(C \mid -) \times P(C)\)\\\\
-\(P'(C \mid +, -) = 0.01 \times 0.9 \times 0.01 = 0.0009\)\\\\
+\(P'(C \mid +, -) = 0.9 \times 0.1 \times 0.01 = 0.0009\)\\\\
 \(\eta = ( P'(C \mid +, -) + P'(\neg C \mid +, -) )\textsuperscript{-1}\)\\\\
 \(\eta = (0.0009 + 0.1584)\textsuperscript{-1} = 6.2775\)\\\\
-Since \(P(C \mid +, -) = \eta\;P'(C \mid +, -)\)\\\\
 \vspace{2em}
-\(P(C \mid +, -) = 0.0009 \times 6.2775 = 0.0056\)
+Then \(P(C \mid +, -) = 6.2775 \times 0.0009 = 0.0056\)
 \par
 \subsection*{Conditional Independence}
 In Bayes' network, given three causes \colorbox{myBlue}{A}, \colorbox{myBlue}{B} and \colorbox{myBlue}{C},\\
@@ -189,4 +189,60 @@ if A is a known variable i.e. the value of A is certain, then B is \textbf{condi
 \begin{equation}
 \colorbox{myGray}{\(P(C \mid A,B) = P(C \mid A)\)}
 \end{equation}
+\subsection*{Explaining Away}
+\vspace{2em}
+\includegraphics[width=\textwidth]{probs9}
+Given an Effect that could be caused by two or more Causes, if one of the Causes is known to have lead to the Effect then it is less likely that the other Causes lead to the Effect. For example, say a \colorbox{myBlue}{sunny day} or a \colorbox{myBlue}{raise} makes Sebastian \colorbox{myRed}{happy}; if Sebastian happens to be \colorbox{myRed}{happy} on a  \colorbox{myBlue}{sunny day} then it is less likely that a \colorbox{myBlue}{raise} is the reason for Sebastian's happiness.\\
+\vspace{2em}
+Let's do an example,\\
+\vspace{2em}
+\includegraphics[width=\textwidth]{probs8}
+Given the above information, what is the probability that of a raise given that 
+\vspace{2em}Sebastian is happy and it's sunny \(P(R\mid H, S)\)?\\
+\textit{Using Bayes' Rule\\}
+\begin{equation}
+P(R\mid H, S) = \frac{P(H\mid R, S) \times P(R\mid S)}{P(H\mid S)}
+\end{equation}
+\textit{Using Conditional Independence\\}
+\begin{equation}
+P(R\mid H, S) = \frac{P(H\mid R, S) \times P(R)}{P(H\mid S)}
+\end{equation}
+\textit{Using Total Probability\\}
+\begin{equation}
+P(R\mid H, S) = \frac{P(H\mid R, S) \times P(R)}{P(H\mid R, S) \times P(R) + P(H\mid \neg R, S) \times P(\neg R)}
+\end{equation}
+\begin{equation}
+P(R\mid H, S) = \frac{1 \times 0.01}{1 \times 0.01 + 0.7 \times 0.99} = 0.0142
+\end{equation}
+Now, let's do the opposite. Find the probability of a raise given that Sebastian is happy \(P(R \mid H)\).\\
+First, we need to compute \(P(H)\):
+\begin{align*}
+P(H) & = P(H \mid S, R) \times P(S \mid R)\\
+&+ P(H \mid \neg S, R) \times P(\neg S \mid R)\\
+&+ P(H \mid S, \neg R) \times P(S \mid \neg R)\\
+&+ P(H \mid \neg S, \neg R) \times P(\neg S \mid \neg R)\\
+&= 0.5245
+\end{align*}
+\textit{Using Bayes' Rule}
+\begin{equation}
+P(R \mid H) = \frac{P(H \mid R) \times P(R)}{P(H)}
+\end{equation}
+\textit{Using Total Probability}
+\begin{align*}
+P(H \mid R) &=  P(H \mid R,S) \times P(S) + P(H \mid R, \neg S) \times P(\neg S)\\
+&= 0.97
+\end{align*}
+\(P(R \mid H) = \frac{0.97 \times 0.01}{0.5245} = 0.0185\)\\\\
+Let's observe the situation where Sebastian is happy and it's not sunny. What's the probability of a raise \(P(R \mid H, \neg S)\)?\\
+\begin{align*}
+P(R \mid H, \neg S) &= \frac{P(H \mid R, \neg S) \times P(R, \neg S)}{P(H, \neg S)}\\
+&= \frac{0.9 \times 0.01}{1 \times 0.01 + 0.7 \times 0.99}\\
+&= 0.0833\\
+\end{align*}
+Bringing all three situations together:\\
+\begin{align*}
+P(R \mid H, S) &= 0.0142\\
+P(R \mid H) &= 0.0185\\
+P(R \mid H, \neg S) &= 0.0833\\
+\end{align*}
 \end{document}
