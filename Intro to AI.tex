@@ -245,4 +245,29 @@ P(R \mid H, S) &= 0.0142\\
 P(R \mid H) &= 0.0185\\
 P(R \mid H, \neg S) &= 0.0833\\
 \end{align*}
+\subsection*{Conditional Dependence}
+\vspace{2em}
+The previous section introduced a situation where two Causes lead to one Effect.\\
+\vspace{2em}
+\includegraphics[width=\textwidth]{probs9}
+Given that \(H\) is unknown, then \(S\) and \(R\) are independent. They do not affect each other, which is why \(P(R \mid S)\) is the same as \(P(R)\). However, if \(H\) is known then \(S\) and \(R\) are not independent anymore but \textbf{conditionally dependent}.\\
+Note the difference between \textbf{independence}, \textbf{conditional independence}, and \textbf{conditional dependence}.\par
+\subsection*{General Bayes Net}
+\includegraphics[width=\textwidth]{probs10}
+With Bayes' network, finding the probability of all nodes in a network is significantly better that without using Bayes' network. The probability of all nodes \(P(A, B, C, D, E)\) is as follows:
+\begin{equation}
+P(A, B, C, D, E) = P(A) \times P(B) \times P(C \mid A,B) \times P(D \mid C) \times P(E \mid C)
+\end{equation}
+The number of values of the probability of each node in the network is determined by the number of \enquote{incoming arcs} the node has. For the graphics above, \(A\) and \(B\) have zero incoming arcs, \(C\) has two incoming arcs and \(D\) and \(E\) have one incoming arcs.\\
+\begin{align*}
+the\;\#\;of\;P(X) &= 2^{k}\;\;where\;k\;is\;\#\;of\;incoming\;arcs\\
+for\;A, P\textsubscript{n}(A) &= 2^{0}\\
+&= 1 : ( P(A) )\\
+for\;C, P\textsubscript{n}(C) &= 2^{2}\\
+&= 4 : \\
+& ( P(C \mid A, B),\\
+& P(C \mid A, \neg B),\\
+& P(C \mid \neg A, B),\\
+& P(C \mid \neg A, \neg B) )\\
+\end{align*}
 \end{document}
