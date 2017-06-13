@@ -270,4 +270,40 @@ for\;C, P\textsubscript{n}(C) &= 2^{2}\\
 & P(C \mid \neg A, B),\\
 & P(C \mid \neg A, \neg B) )\\
 \end{align*}
+\subsection*{D Separation a.k.a Reachability}
+D Separation can be understood with the concepts of \textbf{Active Triplets} and \textbf{Inactive Triplets} where both concepts apply some rules to a sequence of three variables in a network. Active Triplets renders variables dependent, on the other hand, Inactive Triplets renders variables independent.\\\\
+\textit{A = first node, B = middle node, C = last node, D = extended node}
+\center
+\begin{tabular}{|c|c|c|c|}
+\hline
+Active Triplets 
+&
+&
+Inactive Triplets
+& \\ \hline
+%row 2
+\raisebox{-\totalheight}{\includegraphics[width=0.25\textwidth]{probs11}} 
+& 
+\parbox[c]{0.25\textwidth}{A and C are dependent when \textbf{B is unknown}.}
+& \raisebox{-\totalheight}{\includegraphics[width=0.25\textwidth]{probs12}} 
+& \parbox[c]{0.25\textwidth}{A and C are independent when \textbf{B is known}.}\\[5em] \hline
+%row 3
+\raisebox{-\totalheight}{\includegraphics[width=0.25\textwidth]{probs13}} 
+& 
+\parbox[c]{0.25\textwidth}{A and C are dependent when \textbf{B is unknown}.}
+& \raisebox{-\totalheight}{\includegraphics[width=0.25\textwidth]{probs14}} 
+& \parbox[c]{0.25\textwidth}{A and C are independent when \textbf{B is known}.}\\[5em] \hline
+%row 4
+\raisebox{-\totalheight}{\includegraphics[width=0.25\textwidth]{probs15}} 
+& 
+\parbox[c]{0.25\textwidth}{A and C are dependent when \textbf{B is known}.}
+& \raisebox{-\totalheight}{\includegraphics[width=0.25\textwidth]{probs16}} 
+& \parbox[c]{0.25\textwidth}{A and C are independent when \textbf{B is unknown}.}\\[5em] \hline
+%row 5
+\raisebox{-\totalheight}{\includegraphics[width=0.25\textwidth]{probs13}} 
+& 
+\parbox[c]{0.25\textwidth}{A, B and C are dependent when \textbf{D is known}.}
+& &
+\end{tabular}
+\center
 \end{document}
