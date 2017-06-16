@@ -261,9 +261,9 @@ P(A, B, C, D, E) = P(A) \times P(B) \times P(C \mid A,B) \times P(D \mid C) \tim
 The number of values of the probability of each node in the network is determined by the number of \enquote{incoming arcs} the node has. For the graphics above, \(A\) and \(B\) have zero incoming arcs, \(C\) has two incoming arcs and \(D\) and \(E\) have one incoming arcs.\\
 \begin{align*}
 the\;\#\;of\;P(X) &= 2^{k}\;\;where\;k\;is\;\#\;of\;incoming\;arcs\\
-for\;A, P\textsubscript{n}(A) &= 2^{0}\\
+for\;A,\;P\textsubscript{n}(A) &= 2^{0}\\
 &= 1 : ( P(A) )\\
-for\;C, P\textsubscript{n}(C) &= 2^{2}\\
+for\;C,\;P\textsubscript{n}(C) &= 2^{2}\\
 &= 4 : \\
 & ( P(C \mid A, B),\\
 & P(C \mid A, \neg B),\\
@@ -273,7 +273,7 @@ for\;C, P\textsubscript{n}(C) &= 2^{2}\\
 \subsection*{D Separation a.k.a Reachability}
 D Separation can be understood with the concepts of \textbf{Active Triplets} and \textbf{Inactive Triplets} where both concepts apply some rules to a sequence of three variables in a network. Active Triplets renders variables dependent, on the other hand, Inactive Triplets renders variables independent.\\\\
 \textit{A = first node, B = middle node, C = last node, D = extended node}
-\center
+\begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
 Active Triplets 
@@ -300,10 +300,65 @@ Inactive Triplets
 & \raisebox{-\totalheight}{\includegraphics[width=0.25\textwidth]{probs16}} 
 & \parbox[c]{0.25\textwidth}{A and C are independent when \textbf{B is unknown}.}\\[5em] \hline
 %row 5
-\raisebox{-\totalheight}{\includegraphics[width=0.25\textwidth]{probs13}} 
+\raisebox{-\totalheight}{\includegraphics[width=0.25\textwidth]{probs17}} 
 & 
 \parbox[c]{0.25\textwidth}{A, B and C are dependent when \textbf{D is known}.}
-& &
+& &\\
+\hline
 \end{tabular}
-\center
+\end{center}
+\section*{Probabilistic Inference}
+\vspace{2em}
+This section will focus on the how to apply Bayes' rule to answering probability questions.\\
+\vspace{2em}
+\includegraphics[width=\textwidth]{inference1}
+Given the above graphic, one possible probabilistic question is: "what are the possible outputs given some inputs?". In this case, we can we say "given B and E, what are the outputs, J and M?".\\
+\par
+In probabilistic inference, an \enquote*{input} is referred to as \textbf{evidence} and an \enquote*{output} is referred to as \textbf{query}. An Evidence could be a variable that we know the values of and a Query could be a variable we're trying to find the value of. Another term in probabilistic inference is \textbf{hidden} which is a variable that we know and won't calculate what is value is. An hidden is neither an Evidence or a Query. A Query variable \textbf{is not} a single number but rather a probability distribution. \\
+\par
+The \enquote*{output} of a probabilistic inference is a joint distribution of all the Query variables: probability of one or more Query variables given one or more Evidence variables where each Evidence is a single value \(P(Q\textsubscript{1}, Q\textsubscript{2} ... \mid E\textsubscript{1} = e\textsubscript{1}, E\textsubscript{2} = e\textsubscript{2} ... )\). Another helpful formula is: out of the possible Query values for all the Query variables, which combination of values has the highest probability? \(argmax\textsubscript{q}\;P(Q\textsubscript{1} = q\textsubscript{1}, Q\textsubscript{2} = q\textsubscript{2} ... \mid E\textsubscript{1} = e\textsubscript{1}, E\textsubscript{2} = e\textsubscript{2} ... )\)\\
+\subsection{Enumeration}
+\par
+Enumeration is a function that goes thru all possible probabilities in a certain network and comes up with one answer.\\
+Let's explore Enumeration by stating the following problem, what's the probability that a burglary (B) alarm occurred given that John (J) and Mary (M) called \textit{the police, I guess}, \(P(+b\mid +j, +m)\).\\\\
+\textit{Using Conditional Probability}
+\begin{align*}
+P(+b\mid +j, +m) &= \frac{\textit{joint probability}}{\textit{conditionalized variable}}\\
+&= \frac{P(+b, +j, +m)}{P(+j, +m)}\\
+\textit{Note:}\;P(E = true) &\equiv P(+e)\\
+ &\equiv 1 - P(\neg e)
+\end{align*}
+You would notice that, with Enumeration, we converted a conditional probability \(P(+b\mid +j, +m)\) to an unconditional probability. Now, we would expand the unconditional probabilities starting with the numerator. The expansion is done by enumerating all the atomic probabilities and calculating the sum of products, i.e. enumerate all possible values of the Hidden variables and find the product of probabilities of all atomic variables.
+\begin{align*}
+P(+b, +j, +m) &= \sum_{e} \sum_{a} P(+b, +m, +j, e, a)\\
+\end{align*}
+\(P(+b, +m, +j, e, a)\) can be calculated based on the parent of each node.\\\\
+\(P(+b, +m, +j, e, a) = P(+b) \times P(+m \mid a) \times P(+j \mid a) \times P(e) \times P(a \mid +b, e)\)\\\\
+Since \(e\) and \(a\) both have two possible values, true or false, i.e. there's either an earthquake or there isn't and alarm is either on or off.
+Let \(P(+b, +m, +j, e, a)\) be \(f(e, a)\)\\
+\begin{align*}
+P(+b, +j, +m) &= \textit{summation of all possible values of \(e\) and \(a\)}\\
+&= f(+e, +a) + f(+e, \neg a) + f(\neg e, +a) + f(\neg e, \neg a)
+\end{align*}
+The values for each probability are provided below.\\
+\includegraphics[width=\textwidth]{inference2}
+\subsection{Speeding up Enumeration}
+For our example, there are only 5 variables. If all 5 variables are Hidden variables, there will be only 32 rows (\(f(b, e, a, j, m)\)) to sum up. In the practical world, there are more complex networks that could lead to really large rows to sum up. Therefore, we would have to come up with methods that are faster than simple Enumeration.
+\subsection{Pulling out terms}
+The first technique we can use to speed-up inference in Bayes Network is to pull out terms from enumeration.\\\\
+Recall, \(\sum_{e}\sum_{a}P(+b) \times P(+m \mid a) \times P(+j \mid a) \times P(e) \times P(a \mid +b, e)\),\\\\
+we can pull out \(P(+b)\) since its value stays the same for all rows.\\\\
+\(\Rightarrow P(+b) \sum_{e}\sum_{a} P(+m \mid a) \times P(+j \mid a) \times P(e) \times P(a \mid +b, e)\)\\\\
+we can also pull out \(P(e)\) one level of summation since its value stays the same for the outer summation\\\\
+\(\Rightarrow P(+b) \sum_{e} P(e)  \sum_{a} P(+m \mid a) \times P(+j \mid a) \times P(a \mid +b, e)\)\\
+\subsection{Maximize Independence}
+Maximizing independence depends on the structure of the Bayes' Network. For a linear structured Bayes' Network, it would take \(\bigcirc(n)\) if all \(n\) variables are boolean.\\\\
+\vspace{2em}
+\includegraphics[width=\textwidth]{inference3}
+For a structure where every node points to every other node, it could take \(\bigcirc(2^{n})\) if all \(n\) variables are boolean.\\\\
+\vspace{2em}
+\includegraphics[width=\textwidth]{inference4}
+\subsection{Causal direction}
+Bayes' Network tend to be more compact and thus easier to perform inference on when the network flows from causes to effects. Our example can be drawn in causal direction as shown in the graphic below.\\
+\includegraphics[width=\textwidth]{inference5}
 \end{document}
